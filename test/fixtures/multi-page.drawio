@@ -1,0 +1,24 @@
+<mxfile>
+  <diagram name="Application">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="2" value="App Service" style="shape=mxgraph.archimate3.application;fillColor=#99ffff;strokeColor=#00cccc;fontColor=#000000;fontSize=12;fontStyle=0;appType=serv;whiteSpace=wrap;html=1;data-block-id=application-service;data-library-version=0.1.0" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="120" height="60" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Business">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="2" value="Business Role" style="shape=mxgraph.archimate3.business;fillColor=#ffff99;strokeColor=#cccc00;fontColor=#000000;fontSize=12;fontStyle=0;busType=role;whiteSpace=wrap;html=1;data-block-id=business-role;data-library-version=0.1.0" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="120" height="60" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
