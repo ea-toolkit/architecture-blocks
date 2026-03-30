@@ -1,15 +1,15 @@
-# Context Blocks — Draw.io Shape Library Package
+# Architecture Blocks — Draw.io Shape Library Package
 
 ## What This Is
 
-An npm package (`@ea-toolkit/context-blocks-drawio`) that distributes a custom draw.io shape library for architecture diagrams (ArchiMate context blocks) and includes a CLI tool to upgrade existing diagrams when the library changes.
+An npm package (`@ea-toolkit/architecture-blocks`) that distributes a custom draw.io shape library for architecture diagrams (ArchiMate context blocks) and includes a CLI tool to upgrade existing diagrams when the library changes.
 
-Think: versioned shape library with a `npx context-blocks upgrade` command that updates styles across all your .drawio files.
+Think: versioned shape library with a `npx architecture-blocks upgrade` command that updates styles across all your .drawio files.
 
 ## Architecture
 
 ```
-context-blocks-drawio/
+architecture-blocks/
 ├── CLAUDE.md
 ├── REQUIREMENTS.md
 ├── package.json              # npm package config

@@ -1,8 +1,8 @@
-# Context Blocks Draw.io — Requirements
+# Architecture Blocks — Requirements
 
 ## Vision
 
-An npm package that distributes a versioned draw.io shape library for architecture context blocks and includes a CLI to upgrade existing diagrams when the library changes. Install once, `npx context-blocks upgrade` to keep all your diagrams in sync.
+An npm package that distributes a versioned draw.io shape library for architecture context blocks and includes a CLI to upgrade existing diagrams when the library changes. Install once, `npx architecture-blocks upgrade` to keep all your diagrams in sync.
 
 ---
 
@@ -12,7 +12,7 @@ An npm package that distributes a versioned draw.io shape library for architectu
 - Initialize npm package with TypeScript
 - Configure tsup for CLI + library build
 - Configure vitest for testing
-- Set up package.json with name `@ea-toolkit/context-blocks-drawio`, bin entry for CLI
+- Set up package.json with name `@ea-toolkit/architecture-blocks`, bin entry for CLI
 - .gitignore, tsconfig.json, vitest.config.ts
 
 ### 2. Shape definitions
@@ -104,18 +104,18 @@ An npm package that distributes a versioned draw.io shape library for architectu
 - Global options: --verbose, --dry-run, --no-backup
 
 ### 15. Upgrade command
-- `npx context-blocks upgrade [path]`
+- `npx architecture-blocks upgrade [path]`
 - Find all .drawio files, parse, match, diff, upgrade
 - Output: per-file summary of changes
 - Dry-run mode: show what would change without modifying
 
 ### 16. Check command
-- `npx context-blocks check [path]`
+- `npx architecture-blocks check [path]`
 - Report stale shapes without modifying
 - Exit code 1 if stale shapes found (useful for CI)
 
 ### 17. Version command
-- `npx context-blocks version`
+- `npx architecture-blocks version`
 - Show installed library version
 
 ### 18. CLI output formatting
@@ -137,7 +137,7 @@ An npm package that distributes a versioned draw.io shape library for architectu
 ### 20. Package publishing prep
 - Clean package.json (files, exports, bin)
 - Build produces dist/ with CLI + library
-- Verify npx context-blocks works from a clean install
+- Verify npx architecture-blocks works from a clean install
 - Add LICENSE (MIT)
 
 ---
