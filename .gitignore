@@ -1,4 +1,5 @@
 node_modules/
 dist/
+libraries/*.xml
 *.tsbuildinfo
 .DS_Store

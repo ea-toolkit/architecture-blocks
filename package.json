@@ -1,0 +1,47 @@
+{
+  "name": "@ea-toolkit/architecture-blocks",
+  "version": "0.1.0",
+  "description": "Versioned draw.io shape library for ArchiMate architecture blocks with CLI upgrade tool",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "architecture-blocks": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "libraries"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "drawio",
+    "archimate",
+    "architecture",
+    "diagram",
+    "shape-library"
+  ],
+  "author": "rajnavakoti <rajnavakoti@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  },
+  "dependencies": {
+    "commander": "^13.1.0",
+    "fast-xml-parser": "^5.1.0"
+  }
+}
