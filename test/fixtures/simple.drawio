@@ -1,0 +1,19 @@
+<mxfile>
+  <diagram name="Page-1">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="2" value="My Component" style="shape=mxgraph.archimate3.application;fillColor=#99ffff;strokeColor=#00cccc;fontColor=#000000;fontSize=12;fontStyle=0;appType=comp;whiteSpace=wrap;html=1;data-block-id=application-component;data-library-version=0.1.0" vertex="1" parent="1">
+          <mxGeometry x="100" y="100" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="3" value="My Actor" style="shape=mxgraph.archimate3.business;fillColor=#ffff99;strokeColor=#cccc00;fontColor=#000000;fontSize=12;fontStyle=0;busType=actor;whiteSpace=wrap;html=1;data-block-id=business-actor;data-library-version=0.1.0" vertex="1" parent="1">
+          <mxGeometry x="300" y="100" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="4" value="" style="edgeStyle=orthogonalEdgeStyle" edge="1" source="2" target="3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
