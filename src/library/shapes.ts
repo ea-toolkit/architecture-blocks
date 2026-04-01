@@ -19,6 +19,16 @@ function findShapesDir(): string {
 
 const SHAPES_DIR = findShapesDir();
 
+export interface ShapeProperty {
+  key: string;
+  label: string;
+  type?: "string" | "enum" | "boolean" | "number";
+  default?: string;
+  options?: string[];
+  required?: boolean;
+  description?: string;
+}
+
 export interface ShapeDefinition {
   blockId: string;
   name: string;
@@ -28,6 +38,7 @@ export interface ShapeDefinition {
   strokeColor: string;
   width: number;
   height: number;
+  properties?: ShapeProperty[];
   deprecated?: boolean;
   deprecatedSince?: string;
   replacedBy?: string;
@@ -74,6 +85,7 @@ interface YamlShape {
     width: number;
     height: number;
   };
+  properties?: ShapeProperty[];
   deprecated?: boolean;
   deprecatedSince?: string;
   replacedBy?: string;
@@ -129,6 +141,7 @@ function loadShapesFromDir(dir: string): ShapeDefinition[] {
         strokeColor: yaml.visual.strokeColor,
         width: yaml.dimensions.width,
         height: yaml.dimensions.height,
+        properties: yaml.properties,
         deprecated: yaml.deprecated,
         deprecatedSince: yaml.deprecatedSince,
         replacedBy: yaml.replacedBy,

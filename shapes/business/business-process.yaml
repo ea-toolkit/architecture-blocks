@@ -14,3 +14,25 @@ visual:
 dimensions:
   width: 120
   height: 60
+properties:
+  - key: processOwner
+    label: Process Owner
+    type: string
+    default: ""
+  - key: automationLevel
+    label: Automation Level
+    type: enum
+    default: manual
+    options:
+      - manual
+      - semi-automated
+      - fully-automated
+  - key: maturity
+    label: Maturity
+    type: enum
+    default: defined
+    options:
+      - initial
+      - defined
+      - managed
+      - optimized

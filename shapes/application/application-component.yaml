@@ -14,3 +14,29 @@ visual:
 dimensions:
   width: 120
   height: 60
+properties:
+  - key: owner
+    label: Owner
+    type: string
+    default: ""
+    description: Team or person responsible for this component
+  - key: status
+    label: Status
+    type: enum
+    default: active
+    options:
+      - active
+      - deprecated
+      - planned
+      - retiring
+    description: Current lifecycle status
+  - key: criticality
+    label: Criticality
+    type: enum
+    default: medium
+    options:
+      - low
+      - medium
+      - high
+      - critical
+    description: Business criticality level

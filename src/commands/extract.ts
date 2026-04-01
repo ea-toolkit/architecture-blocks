@@ -78,7 +78,10 @@ export async function extractCommand(
         continue;
       }
 
-      const yamlDoc = {
+      // Extract custom properties from cell attributes
+      const properties = extractProperties(cell.attributes, styleMap);
+
+      const yamlDoc: Record<string, unknown> = {
         blockId,
         name: inferName(blockId),
         layer,
@@ -95,6 +98,10 @@ export async function extractCommand(
           height: cell.geometry?.height || 60,
         },
       };
+
+      if (properties.length > 0) {
+        yamlDoc.properties = properties;
+      }
 
       mkdirSync(layerDir, { recursive: true });
       writeFileSync(yamlPath, stringify(yamlDoc));
@@ -196,4 +203,42 @@ function inferName(blockId: string): string {
     .split("-")
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(" ");
+}
+
+// Attributes to skip — these are internal draw.io or managed by our tool
+const SKIP_ATTRIBUTES = new Set([
+  "data-block-id",
+  "data-library-version",
+  "placeholders",
+]);
+
+function extractProperties(
+  attributes: Record<string, string>,
+  styleMap: Map<string, string>,
+): Array<{ key: string; label: string; type: string; default: string }> {
+  const properties: Array<{ key: string; label: string; type: string; default: string }> = [];
+
+  for (const [key, value] of Object.entries(attributes)) {
+    if (SKIP_ATTRIBUTES.has(key)) continue;
+    // Skip style-related attributes that are already captured
+    if (styleMap.has(key)) continue;
+
+    properties.push({
+      key,
+      label: key
+        .replace(/([A-Z])/g, " $1")
+        .replace(/^./, (s) => s.toUpperCase())
+        .trim(),
+      type: inferPropertyType(value),
+      default: value,
+    });
+  }
+
+  return properties;
+}
+
+function inferPropertyType(value: string): string {
+  if (value === "true" || value === "false") return "boolean";
+  if (!isNaN(Number(value)) && value.length > 0) return "number";
+  return "string";
 }
