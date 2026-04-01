@@ -1,0 +1,9 @@
+# Shape definitions require architecture team review
+shapes/ @ea-toolkit/architecture
+schemas/ @ea-toolkit/architecture
+
+# CI/CD changes require maintainer review
+.github/ @ea-toolkit/maintainers
+
+# Everything else
+* @rajnavakoti

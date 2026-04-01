@@ -10,6 +10,8 @@ export interface MatchedShape {
   currentVersion: string;
   libraryVersion: string;
   needsUpgrade: boolean;
+  deprecated: boolean;
+  replacedBy?: string;
 }
 
 export interface UnmatchedCell {
@@ -60,6 +62,8 @@ export function matchCells(
       currentVersion,
       libraryVersion,
       needsUpgrade: currentVersion !== libraryVersion,
+      deprecated: definition.deprecated ?? false,
+      replacedBy: definition.replacedBy,
     });
   }
 

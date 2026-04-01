@@ -1,5 +1,6 @@
 import { relative } from "node:path";
 import type { ShapeDiff } from "../lib/differ.js";
+import type { MatchedShape } from "../lib/matcher.js";
 
 export function formatUpgradeResult(
   file: string,
@@ -42,6 +43,14 @@ export function formatSummary(
   process.stdout.write(
     `\n${prefix}${totalBlocks} blocks found, ${totalUpgraded} ${dryRun ? "need" : "upgraded"} across ${filesChanged} of ${filesScanned} files\n`,
   );
+}
+
+export function formatDeprecationWarnings(matched: MatchedShape[]): void {
+  const deprecated = matched.filter((m) => m.deprecated);
+  for (const m of deprecated) {
+    const replacement = m.replacedBy ? `, use ${m.replacedBy}` : "";
+    process.stderr.write(`  ⚠ deprecated ${m.blockId}${replacement}\n`);
+  }
 }
 
 export function formatCheckSummary(
