@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Architecture Block Shape Definition",
   "description": "Schema for YAML shape definition files used to generate draw.io libraries",
   "type": "object",
