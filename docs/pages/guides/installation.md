@@ -1,9 +1,20 @@
 ---
-layout: default
 title: Installation
+layout: default
+parent: Guides
+nav_order: 1
 ---
 
 # Installation
+{: .no_toc }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## Requirements
 
@@ -28,18 +39,18 @@ npm install --save-dev @ea-toolkit/architecture-blocks
 ### Full library (all 60 shapes)
 
 1. Open draw.io
-2. File > Open Library from > Device
-3. Navigate to your project's `node_modules/@ea-toolkit/architecture-blocks/libraries/`
-4. Select `architecture-blocks.xml`
+2. **File > Open Library from > Device**
+3. Navigate to `node_modules/@ea-toolkit/architecture-blocks/libraries/`
+4. Select **`architecture-blocks.xml`**
 
-The shapes appear in the sidebar under "Architecture Blocks".
+The shapes appear in the sidebar panel, ready to drag onto your canvas.
 
 ### Per-layer libraries
 
-If you only work with specific ArchiMate layers, import just the layers you need:
+If you only work with specific ArchiMate layers, import just what you need:
 
 | File | Shapes |
-|------|--------|
+|:-----|:-------|
 | `architecture-blocks-application.xml` | 9 application shapes |
 | `architecture-blocks-business.xml` | 13 business shapes |
 | `architecture-blocks-technology.xml` | 13 technology shapes |
@@ -54,10 +65,8 @@ If you only work with specific ArchiMate layers, import just the layers you need
 For teams who want the library loaded automatically:
 
 1. Copy `plugin/architecture-blocks-plugin.js` to a shared location
-2. In draw.io: Extras > Plugins > Add > select the plugin file
+2. In draw.io: **Extras > Plugins > Add** > select the file
 3. Restart draw.io
-
-The plugin auto-loads the library on startup.
 
 ## Verify installation
 
@@ -75,7 +84,5 @@ npx architecture-blocks version
 ├── dist/           # CLI + library JavaScript
 ├── libraries/      # Generated draw.io XML files (importable)
 ├── shapes/         # YAML source definitions
-└── schemas/        # JSON Schema for shape YAML
+└── schemas/        # JSON Schema for shape YAML validation
 ```
-
-[Next: Quick Start >](quick-start.html)

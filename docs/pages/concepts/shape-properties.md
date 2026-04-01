@@ -1,11 +1,23 @@
 ---
-layout: default
 title: Shape Properties
+layout: default
+parent: Concepts
+nav_order: 3
 ---
 
 # Shape Properties
+{: .no_toc }
 
 Custom metadata that gives shapes context beyond visual appearance.
+{: .fs-6 .fw-300 }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## Why properties matter
 

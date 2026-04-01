@@ -1,11 +1,23 @@
 ---
-layout: default
 title: Shape Identity
+layout: default
+parent: Concepts
+nav_order: 2
 ---
 
 # Shape Identity
+{: .no_toc }
 
 How shapes are identified, versioned, and tracked across diagrams.
+{: .fs-6 .fw-300 }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## data-block-id
 

@@ -1,11 +1,23 @@
 ---
-layout: default
 title: Custom Extensions
+layout: default
+parent: Guides
+nav_order: 5
 ---
 
 # Custom Extensions
+{: .no_toc }
 
 Add org-specific shapes without forking the library.
+{: .fs-6 .fw-300 }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## Why extensions?
 
