@@ -5,6 +5,7 @@ import { checkCommand } from "./commands/check.js";
 import { versionCommand, versionsCommand } from "./commands/version.js";
 import { extractCommand } from "./commands/extract.js";
 import { rollbackCommand } from "./commands/rollback.js";
+import { diffVersionsCommand } from "./commands/diff-versions.js";
 
 const program = new Command();
 
@@ -48,5 +49,10 @@ program
   .command("rollback <file>")
   .description("Restore a .drawio file from its .bak backup")
   .action(rollbackCommand);
+
+program
+  .command("diff-versions <from> <to>")
+  .description("Show changes between two library versions")
+  .action(diffVersionsCommand);
 
 program.parse();
