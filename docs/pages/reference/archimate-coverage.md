@@ -1,6 +1,8 @@
 ---
-layout: default
 title: ArchiMate 3.2 Coverage
+layout: default
+parent: Reference
+nav_order: 3
 ---
 
 # ArchiMate 3.2 Coverage

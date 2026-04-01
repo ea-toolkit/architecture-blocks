@@ -1,11 +1,23 @@
 ---
+title: Enterprise Adoption
 layout: default
-title: Enterprise Adoption Guide
+parent: Guides
+nav_order: 4
 ---
 
-# Enterprise Adoption Guide
+# Enterprise Adoption
+{: .no_toc }
 
 How to evaluate, pilot, and roll out architecture-blocks across your organization.
+{: .fs-6 .fw-300 }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## Phased rollout
 

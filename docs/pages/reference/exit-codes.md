@@ -1,6 +1,8 @@
 ---
-layout: default
 title: Exit Codes
+layout: default
+parent: Reference
+nav_order: 2
 ---
 
 # Exit Codes

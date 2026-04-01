@@ -1,6 +1,8 @@
 ---
+title: Breaking Changes
 layout: default
-title: Breaking Change Policy
+parent: Reference
+nav_order: 5
 ---
 
 # Breaking Change Policy

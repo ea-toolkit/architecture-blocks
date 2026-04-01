@@ -1,11 +1,23 @@
 ---
-layout: default
 title: CLI Reference
+layout: default
+parent: Reference
+nav_order: 1
 ---
 
 # CLI Reference
+{: .no_toc }
 
-Complete reference for all `architecture-blocks` CLI commands.
+Complete reference for all 7 commands.
+{: .fs-6 .fw-300 }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## Global
 

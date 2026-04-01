@@ -1,11 +1,23 @@
 ---
-layout: default
 title: How It Works
+layout: default
+parent: Concepts
+nav_order: 1
 ---
 
 # How It Works
+{: .no_toc }
 
 The complete data flow from YAML definition to upgraded diagram.
+{: .fs-6 .fw-300 }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## The big picture
 

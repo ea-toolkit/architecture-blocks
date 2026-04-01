@@ -1,11 +1,23 @@
 ---
-layout: default
 title: YAML Schema
+layout: default
+parent: Concepts
+nav_order: 4
 ---
 
 # YAML Schema
+{: .no_toc }
 
 The shape definition format explained field by field.
+{: .fs-6 .fw-300 }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## File structure
 

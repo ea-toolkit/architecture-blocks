@@ -1,6 +1,8 @@
 ---
-layout: default
 title: Security
+layout: default
+parent: Reference
+nav_order: 6
 ---
 
 # Security

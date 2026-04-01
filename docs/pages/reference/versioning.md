@@ -1,6 +1,8 @@
 ---
-layout: default
 title: Versioning & Upgrades
+layout: default
+parent: Reference
+nav_order: 4
 ---
 
 # Versioning & Upgrades
