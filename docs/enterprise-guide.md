@@ -99,6 +99,29 @@ Use the GitHub issue templates:
 3. CI validates YAML, runs tests, checks round-trip
 4. Merge → release → consumers upgrade
 
+## Shape Properties (Context Metadata)
+
+Shapes aren't just visual — they carry context. Properties defined in YAML appear in draw.io's Edit > Edit Data dialog when architects use the shapes:
+
+```yaml
+properties:
+  - key: owner
+    label: Owner
+    type: string
+  - key: status
+    label: Status
+    type: enum
+    options: [active, deprecated, planned, retiring]
+  - key: criticality
+    label: Criticality
+    type: enum
+    options: [low, medium, high, critical]
+```
+
+This means when someone drags an "Application Component" onto their diagram, they immediately see fields for Owner, Status, and Criticality. These properties are stored in the diagram XML and survive upgrades — the upgrade command only updates visual styles, never property values.
+
+Enterprise teams should define properties that match their architecture governance model — ownership, lifecycle stage, compliance classification, data sensitivity, etc.
+
 ## Extension Shapes
 
 Teams can add custom shapes without forking:
