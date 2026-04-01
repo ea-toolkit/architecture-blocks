@@ -142,6 +142,55 @@ An npm package that distributes a versioned draw.io shape library for architectu
 
 ---
 
+## Milestone 6: YAML Shape Catalog (Issues 27-30)
+
+### 27. YAML schema for shape definitions
+### 28. Convert shape definitions from TypeScript to YAML
+### 29. YAML validation with schema at build time
+### 30. YAML generation helper — extract shapes from .drawio files
+
+---
+
+## Milestone 7: Shape Integrity & Validation (Issues 31-32)
+
+### 31. Round-trip validation — generate XML, parse back, verify
+### 32. Shape catalog completeness audit against ArchiMate 3.2 spec
+
+---
+
+## Milestone 8: CI/CD & Release Pipeline (Issues 33-37)
+
+### 33. GitHub Actions CI — test, lint, build on PR
+### 34. Automated npm publish on GitHub Release
+### 35. Publish to GitHub Packages for enterprise consumers
+### 36. Semver strategy with changelog generation
+### 37. Package provenance and supply chain security
+
+---
+
+## Milestone 9: Enterprise Governance (Issues 38-39)
+
+### 38. CODEOWNERS, PR template, issue templates
+### 39. Breaking change policy and deprecation strategy
+
+---
+
+## Milestone 10: Consumer Experience & Backward Compatibility (Issues 40-42)
+
+### 40. Version pinning and rollback support
+### 41. Migration guide generation per release
+### 42. Custom shape extensions for enterprise teams
+
+---
+
+## Milestone 11: Enterprise Distribution (Issues 43-45)
+
+### 43. Draw.io plugin for auto-import and update notifications
+### 44. Monorepo support — scan across workspace packages
+### 45. Enterprise adoption guide
+
+---
+
 ## Success Criteria
 
 ### Milestone 1
