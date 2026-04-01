@@ -1,0 +1,56 @@
+name: Shape Request
+description: Request a new shape or modification to an existing shape
+labels: [shape-request]
+body:
+  - type: dropdown
+    id: request-type
+    attributes:
+      label: Request Type
+      options:
+        - New shape
+        - Style change (colors, font, dimensions)
+        - Shape deprecation
+        - Shape removal
+    validations:
+      required: true
+
+  - type: input
+    id: block-id
+    attributes:
+      label: Block ID
+      description: "Existing blockId (for changes) or proposed blockId (for new shapes)"
+      placeholder: "e.g., application-component"
+
+  - type: dropdown
+    id: layer
+    attributes:
+      label: ArchiMate Layer
+      options:
+        - Application
+        - Business
+        - Technology
+        - Strategy
+        - Motivation
+        - Implementation
+        - Physical
+        - Composite
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: "What and why. Reference ArchiMate spec if applicable."
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: "How to verify this is done correctly"
+      value: |
+        - [ ] Shape renders correctly in draw.io
+        - [ ] YAML passes schema validation
+        - [ ] Round-trip test passes

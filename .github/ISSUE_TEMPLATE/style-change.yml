@@ -1,0 +1,31 @@
+name: Style Change
+description: Propose a color, font, or visual style change for shapes
+labels: [style-change]
+body:
+  - type: input
+    id: block-id
+    attributes:
+      label: Block ID(s)
+      description: "Which shapes are affected?"
+      placeholder: "e.g., application-component, or 'all application layer'"
+    validations:
+      required: true
+
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed Change
+      description: "What visual properties should change? Include old and new values."
+      placeholder: |
+        fillColor: #99ffff → #A0E8E8
+        strokeColor: #00cccc → #009999
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason
+      description: "Why this change? Reference design system, accessibility, or convention."
+    validations:
+      required: true
