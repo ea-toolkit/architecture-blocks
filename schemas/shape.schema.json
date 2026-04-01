@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Architecture Block Shape Definition",
+  "description": "Schema for YAML shape definition files used to generate draw.io libraries",
+  "type": "object",
+  "required": ["blockId", "name", "layer", "archimate", "visual", "dimensions"],
+  "additionalProperties": false,
+  "properties": {
+    "blockId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]+$",
+      "description": "Stable unique identifier (kebab-case). Used as data-block-id in diagrams. Never rename without deprecation."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable display name shown in draw.io shape palette"
+    },
+    "layer": {
+      "type": "string",
+      "enum": ["application", "business", "technology", "strategy", "motivation", "implementation", "physical", "composite"],
+      "description": "ArchiMate layer this shape belongs to"
+    },
+    "archimate": {
+      "type": "object",
+      "required": ["stencil", "typeAttr", "typeValue"],
+      "additionalProperties": false,
+      "properties": {
+        "stencil": {
+          "type": "string",
+          "description": "draw.io stencil identifier (e.g., mxgraph.archimate3.application)"
+        },
+        "typeAttr": {
+          "type": "string",
+          "description": "ArchiMate type attribute name (e.g., appType, busType)"
+        },
+        "typeValue": {
+          "type": "string",
+          "description": "ArchiMate type value (e.g., comp, actor, serv)"
+        }
+      }
+    },
+    "visual": {
+      "type": "object",
+      "required": ["fillColor", "strokeColor", "fontColor", "fontSize"],
+      "additionalProperties": false,
+      "properties": {
+        "fillColor": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "strokeColor": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "fontColor": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "fontSize": {
+          "type": "integer",
+          "minimum": 8,
+          "maximum": 48
+        },
+        "fontStyle": {
+          "type": "integer",
+          "default": 0,
+          "description": "0=normal, 1=bold, 2=italic, 3=bold+italic"
+        }
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "required": ["width", "height"],
+      "additionalProperties": false,
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 20,
+          "maximum": 500
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 20,
+          "maximum": 500
+        }
+      }
+    },
+    "deprecated": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this shape is deprecated"
+    },
+    "deprecatedSince": {
+      "type": "string",
+      "description": "Version when this shape was deprecated"
+    },
+    "replacedBy": {
+      "type": "string",
+      "description": "blockId of the replacement shape"
+    }
+  }
+}

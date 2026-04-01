@@ -3,6 +3,7 @@ import { VERSION } from "./index.js";
 import { upgradeCommand } from "./commands/upgrade.js";
 import { checkCommand } from "./commands/check.js";
 import { versionCommand } from "./commands/version.js";
+import { extractCommand } from "./commands/extract.js";
 
 const program = new Command();
 
@@ -29,5 +30,12 @@ program
   .command("version")
   .description("Show installed library version and shape count")
   .action(versionCommand);
+
+program
+  .command("extract <file>")
+  .description("Extract shape definitions from a .drawio file to YAML")
+  .option("-o, --output <dir>", "Output directory for YAML files", "shapes")
+  .option("--force", "Overwrite existing YAML files")
+  .action(extractCommand);
 
 program.parse();

@@ -1,0 +1,16 @@
+blockId: application-interface
+name: Application Interface
+layer: application
+archimate:
+  stencil: mxgraph.archimate3.application
+  typeAttr: appType
+  typeValue: interface
+visual:
+  fillColor: "#99ffff"
+  strokeColor: "#00cccc"
+  fontColor: "#000000"
+  fontSize: 12
+  fontStyle: 0
+dimensions:
+  width: 120
+  height: 60

@@ -1,0 +1,16 @@
+blockId: application-function
+name: Application Function
+layer: application
+archimate:
+  stencil: mxgraph.archimate3.application
+  typeAttr: appType
+  typeValue: func
+visual:
+  fillColor: "#99ffff"
+  strokeColor: "#00cccc"
+  fontColor: "#000000"
+  fontSize: 12
+  fontStyle: 0
+dimensions:
+  width: 120
+  height: 60

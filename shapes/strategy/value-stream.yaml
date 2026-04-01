@@ -1,0 +1,16 @@
+blockId: value-stream
+name: Value Stream
+layer: strategy
+archimate:
+  stencil: mxgraph.archimate3.strategy
+  typeAttr: stratType
+  typeValue: valueStream
+visual:
+  fillColor: "#F5DEAA"
+  strokeColor: "#c4a050"
+  fontColor: "#000000"
+  fontSize: 12
+  fontStyle: 0
+dimensions:
+  width: 120
+  height: 60

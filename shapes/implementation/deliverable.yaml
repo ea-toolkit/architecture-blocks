@@ -1,0 +1,16 @@
+blockId: deliverable
+name: Deliverable
+layer: implementation
+archimate:
+  stencil: mxgraph.archimate3.implementation
+  typeAttr: implType
+  typeValue: deliverable
+visual:
+  fillColor: "#FFE0E0"
+  strokeColor: "#cc9999"
+  fontColor: "#000000"
+  fontSize: 12
+  fontStyle: 0
+dimensions:
+  width: 120
+  height: 60

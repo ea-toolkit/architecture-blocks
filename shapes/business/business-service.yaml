@@ -1,0 +1,16 @@
+blockId: business-service
+name: Business Service
+layer: business
+archimate:
+  stencil: mxgraph.archimate3.business
+  typeAttr: busType
+  typeValue: serv
+visual:
+  fillColor: "#ffff99"
+  strokeColor: "#cccc00"
+  fontColor: "#000000"
+  fontSize: 12
+  fontStyle: 0
+dimensions:
+  width: 120
+  height: 60
