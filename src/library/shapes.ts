@@ -94,17 +94,21 @@ function buildStyle(yaml: YamlShape): string {
 }
 
 function loadShapesFromYaml(): ShapeDefinition[] {
+  return loadShapesFromDir(SHAPES_DIR).sort((a, b) => a.blockId.localeCompare(b.blockId));
+}
+
+function loadShapesFromDir(dir: string): ShapeDefinition[] {
   const shapes: ShapeDefinition[] = [];
 
   let layers: string[];
   try {
-    layers = readdirSync(SHAPES_DIR).filter((d) => !d.startsWith("."));
+    layers = readdirSync(dir).filter((d) => !d.startsWith("."));
   } catch {
     return shapes;
   }
 
   for (const layer of layers) {
-    const layerDir = join(SHAPES_DIR, layer);
+    const layerDir = join(dir, layer);
     let files: string[];
     try {
       files = readdirSync(layerDir).filter((f) => f.endsWith(".yaml"));
@@ -132,7 +136,15 @@ function loadShapesFromYaml(): ShapeDefinition[] {
     }
   }
 
-  return shapes.sort((a, b) => a.blockId.localeCompare(b.blockId));
+  return shapes;
+}
+
+export function loadExtensionShapes(extensionDirs: string[]): ShapeDefinition[] {
+  const extensions: ShapeDefinition[] = [];
+  for (const dir of extensionDirs) {
+    extensions.push(...loadShapesFromDir(dir));
+  }
+  return extensions;
 }
 
 export const SHAPES: ShapeDefinition[] = loadShapesFromYaml();
