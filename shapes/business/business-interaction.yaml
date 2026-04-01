@@ -1,0 +1,16 @@
+blockId: business-interaction
+name: Business Interaction
+layer: business
+archimate:
+  stencil: mxgraph.archimate3.business
+  typeAttr: busType
+  typeValue: interaction
+visual:
+  fillColor: "#ffff99"
+  strokeColor: "#cccc00"
+  fontColor: "#000000"
+  fontSize: 12
+  fontStyle: 0
+dimensions:
+  width: 120
+  height: 60

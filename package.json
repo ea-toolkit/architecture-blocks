@@ -16,7 +16,9 @@
   },
   "files": [
     "dist",
-    "libraries"
+    "libraries",
+    "shapes",
+    "schemas"
   ],
   "scripts": {
     "build": "tsup && npm run generate",
@@ -44,6 +46,7 @@
   },
   "dependencies": {
     "commander": "^13.1.0",
-    "fast-xml-parser": "^5.1.0"
+    "fast-xml-parser": "^5.1.0",
+    "yaml": "^2.8.3"
   }
 }

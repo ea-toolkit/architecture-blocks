@@ -1,0 +1,16 @@
+blockId: material
+name: Material
+layer: physical
+archimate:
+  stencil: mxgraph.archimate3.physical
+  typeAttr: phyType
+  typeValue: material
+visual:
+  fillColor: "#99ff99"
+  strokeColor: "#00cc00"
+  fontColor: "#000000"
+  fontSize: 12
+  fontStyle: 0
+dimensions:
+  width: 120
+  height: 60

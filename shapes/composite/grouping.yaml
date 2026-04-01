@@ -1,0 +1,16 @@
+blockId: grouping
+name: Grouping
+layer: composite
+archimate:
+  stencil: mxgraph.archimate3.composite
+  typeAttr: compType
+  typeValue: grouping
+visual:
+  fillColor: "#E0E0E0"
+  strokeColor: "#999999"
+  fontColor: "#000000"
+  fontSize: 12
+  fontStyle: 0
+dimensions:
+  width: 200
+  height: 150

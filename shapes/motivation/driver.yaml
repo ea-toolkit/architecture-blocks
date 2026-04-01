@@ -1,0 +1,16 @@
+blockId: driver
+name: Driver
+layer: motivation
+archimate:
+  stencil: mxgraph.archimate3.motivation
+  typeAttr: motType
+  typeValue: driver
+visual:
+  fillColor: "#CCCCFF"
+  strokeColor: "#9999cc"
+  fontColor: "#000000"
+  fontSize: 12
+  fontStyle: 0
+dimensions:
+  width: 120
+  height: 60

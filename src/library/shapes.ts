@@ -1,3 +1,24 @@
+import { readdirSync, readFileSync, existsSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { parse as parseYaml } from "yaml";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+function findShapesDir(): string {
+  // From dist/: ../shapes. From src/library/: ../../shapes
+  const candidates = [
+    join(__dirname, "..", "shapes"),
+    join(__dirname, "..", "..", "shapes"),
+  ];
+  for (const dir of candidates) {
+    if (existsSync(dir)) return dir;
+  }
+  return candidates[0];
+}
+
+const SHAPES_DIR = findShapesDir();
+
 export interface ShapeDefinition {
   blockId: string;
   name: string;
@@ -7,6 +28,9 @@ export interface ShapeDefinition {
   strokeColor: string;
   width: number;
   height: number;
+  deprecated?: boolean;
+  deprecatedSince?: string;
+  replacedBy?: string;
 }
 
 export type ArchiMateLayer =
@@ -30,126 +54,88 @@ export const LAYER_COLORS: Record<ArchiMateLayer, { fill: string; stroke: string
   composite: { fill: "#E0E0E0", stroke: "#999999" },
 };
 
-function makeStyle(
-  archimateShape: string,
-  typeAttr: string,
-  typeValue: string,
-  layer: ArchiMateLayer,
-): string {
-  const { fill, stroke } = LAYER_COLORS[layer];
+interface YamlShape {
+  blockId: string;
+  name: string;
+  layer: ArchiMateLayer;
+  archimate: {
+    stencil: string;
+    typeAttr: string;
+    typeValue: string;
+  };
+  visual: {
+    fillColor: string;
+    strokeColor: string;
+    fontColor: string;
+    fontSize: number;
+    fontStyle?: number;
+  };
+  dimensions: {
+    width: number;
+    height: number;
+  };
+  deprecated?: boolean;
+  deprecatedSince?: string;
+  replacedBy?: string;
+}
+
+function buildStyle(yaml: YamlShape): string {
   return [
-    `shape=mxgraph.archimate3.${archimateShape}`,
-    `fillColor=${fill}`,
-    `strokeColor=${stroke}`,
-    `fontColor=#000000`,
-    `fontSize=12`,
-    `fontStyle=0`,
-    `${typeAttr}=${typeValue}`,
+    `shape=${yaml.archimate.stencil}`,
+    `fillColor=${yaml.visual.fillColor}`,
+    `strokeColor=${yaml.visual.strokeColor}`,
+    `fontColor=${yaml.visual.fontColor}`,
+    `fontSize=${yaml.visual.fontSize}`,
+    `fontStyle=${yaml.visual.fontStyle ?? 0}`,
+    `${yaml.archimate.typeAttr}=${yaml.archimate.typeValue}`,
     `whiteSpace=wrap`,
     `html=1`,
   ].join(";");
 }
 
-function shape(
-  blockId: string,
-  name: string,
-  layer: ArchiMateLayer,
-  archimateShape: string,
-  typeAttr: string,
-  typeValue: string,
-  width = 120,
-  height = 60,
-): ShapeDefinition {
-  const { fill, stroke } = LAYER_COLORS[layer];
-  return {
-    blockId,
-    name,
-    layer,
-    style: makeStyle(archimateShape, typeAttr, typeValue, layer),
-    fillColor: fill,
-    strokeColor: stroke,
-    width,
-    height,
-  };
+function loadShapesFromYaml(): ShapeDefinition[] {
+  const shapes: ShapeDefinition[] = [];
+
+  let layers: string[];
+  try {
+    layers = readdirSync(SHAPES_DIR).filter((d) => !d.startsWith("."));
+  } catch {
+    return shapes;
+  }
+
+  for (const layer of layers) {
+    const layerDir = join(SHAPES_DIR, layer);
+    let files: string[];
+    try {
+      files = readdirSync(layerDir).filter((f) => f.endsWith(".yaml"));
+    } catch {
+      continue;
+    }
+
+    for (const file of files) {
+      const content = readFileSync(join(layerDir, file), "utf-8");
+      const yaml = parseYaml(content) as YamlShape;
+
+      shapes.push({
+        blockId: yaml.blockId,
+        name: yaml.name,
+        layer: yaml.layer,
+        style: buildStyle(yaml),
+        fillColor: yaml.visual.fillColor,
+        strokeColor: yaml.visual.strokeColor,
+        width: yaml.dimensions.width,
+        height: yaml.dimensions.height,
+        deprecated: yaml.deprecated,
+        deprecatedSince: yaml.deprecatedSince,
+        replacedBy: yaml.replacedBy,
+      });
+    }
+  }
+
+  return shapes.sort((a, b) => a.blockId.localeCompare(b.blockId));
 }
 
-export const SHAPES: ShapeDefinition[] = [
-  // Application Layer
-  shape("application-component", "Application Component", "application", "application", "appType", "comp"),
-  shape("application-interface", "Application Interface", "application", "application", "appType", "interface"),
-  shape("application-function", "Application Function", "application", "application", "appType", "func"),
-  shape("application-interaction", "Application Interaction", "application", "application", "appType", "interaction"),
-  shape("application-process", "Application Process", "application", "application", "appType", "proc"),
-  shape("application-event", "Application Event", "application", "application", "appType", "event"),
-  shape("application-service", "Application Service", "application", "application", "appType", "serv"),
-  shape("application-collaboration", "Application Collaboration", "application", "application", "appType", "collab"),
-  shape("data-object", "Data Object", "application", "application", "appType", "data"),
-
-  // Business Layer
-  shape("business-actor", "Business Actor", "business", "business", "busType", "actor"),
-  shape("business-role", "Business Role", "business", "business", "busType", "role"),
-  shape("business-collaboration", "Business Collaboration", "business", "business", "busType", "collab"),
-  shape("business-interface", "Business Interface", "business", "business", "busType", "interface"),
-  shape("business-process", "Business Process", "business", "business", "busType", "proc"),
-  shape("business-function", "Business Function", "business", "business", "busType", "func"),
-  shape("business-interaction", "Business Interaction", "business", "business", "busType", "interaction"),
-  shape("business-event", "Business Event", "business", "business", "busType", "event"),
-  shape("business-service", "Business Service", "business", "business", "busType", "serv"),
-  shape("business-object", "Business Object", "business", "business", "busType", "object"),
-  shape("contract", "Contract", "business", "business", "busType", "contract"),
-  shape("representation", "Representation", "business", "business", "busType", "representation"),
-  shape("product", "Product", "business", "business", "busType", "product"),
-
-  // Technology Layer
-  shape("node", "Node", "technology", "technology", "techType", "node"),
-  shape("device", "Device", "technology", "technology", "techType", "device"),
-  shape("system-software", "System Software", "technology", "technology", "techType", "sysSw"),
-  shape("technology-interface", "Technology Interface", "technology", "technology", "techType", "interface"),
-  shape("technology-process", "Technology Process", "technology", "technology", "techType", "proc"),
-  shape("technology-function", "Technology Function", "technology", "technology", "techType", "func"),
-  shape("technology-interaction", "Technology Interaction", "technology", "technology", "techType", "interaction"),
-  shape("technology-event", "Technology Event", "technology", "technology", "techType", "event"),
-  shape("technology-service", "Technology Service", "technology", "technology", "techType", "serv"),
-  shape("technology-collaboration", "Technology Collaboration", "technology", "technology", "techType", "collab"),
-  shape("artifact", "Artifact", "technology", "technology", "techType", "artifact"),
-  shape("communication-network", "Communication Network", "technology", "technology", "techType", "commNet"),
-  shape("path", "Path", "technology", "technology", "techType", "path"),
-
-  // Strategy Layer
-  shape("resource", "Resource", "strategy", "strategy", "stratType", "resource"),
-  shape("capability", "Capability", "strategy", "strategy", "stratType", "capability"),
-  shape("value-stream", "Value Stream", "strategy", "strategy", "stratType", "valueStream"),
-  shape("course-of-action", "Course of Action", "strategy", "strategy", "stratType", "courseOfAction"),
-
-  // Motivation Layer
-  shape("stakeholder", "Stakeholder", "motivation", "motivation", "motType", "stakeholder"),
-  shape("driver", "Driver", "motivation", "motivation", "motType", "driver"),
-  shape("assessment", "Assessment", "motivation", "motivation", "motType", "assessment"),
-  shape("goal", "Goal", "motivation", "motivation", "motType", "goal"),
-  shape("outcome", "Outcome", "motivation", "motivation", "motType", "outcome"),
-  shape("principle", "Principle", "motivation", "motivation", "motType", "principle"),
-  shape("requirement", "Requirement", "motivation", "motivation", "motType", "requirement"),
-  shape("constraint", "Constraint", "motivation", "motivation", "motType", "constraint"),
-  shape("meaning", "Meaning", "motivation", "motivation", "motType", "meaning"),
-  shape("value", "Value", "motivation", "motivation", "motType", "value"),
-
-  // Implementation & Migration Layer
-  shape("work-package", "Work Package", "implementation", "implementation", "implType", "workPackage"),
-  shape("deliverable", "Deliverable", "implementation", "implementation", "implType", "deliverable"),
-  shape("implementation-event", "Implementation Event", "implementation", "implementation", "implType", "event"),
-  shape("plateau", "Plateau", "implementation", "implementation", "implType", "plateau"),
-  shape("gap", "Gap", "implementation", "implementation", "implType", "gap"),
-
-  // Physical Layer
-  shape("equipment", "Equipment", "physical", "physical", "phyType", "equipment"),
-  shape("facility", "Facility", "physical", "physical", "phyType", "facility"),
-  shape("distribution-network", "Distribution Network", "physical", "physical", "phyType", "distributionNetwork"),
-  shape("material", "Material", "physical", "physical", "phyType", "material"),
-
-  // Composite Layer
-  shape("grouping", "Grouping", "composite", "composite", "compType", "grouping", 200, 150),
-  shape("location", "Location", "composite", "composite", "compType", "location"),
-];
+export const SHAPES: ShapeDefinition[] = loadShapesFromYaml();
 
 export const SHAPES_BY_ID = new Map<string, ShapeDefinition>(
   SHAPES.map((s) => [s.blockId, s]),

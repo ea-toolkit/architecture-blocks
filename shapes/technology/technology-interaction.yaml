@@ -1,0 +1,16 @@
+blockId: technology-interaction
+name: Technology Interaction
+layer: technology
+archimate:
+  stencil: mxgraph.archimate3.technology
+  typeAttr: techType
+  typeValue: interaction
+visual:
+  fillColor: "#99ff99"
+  strokeColor: "#00cc00"
+  fontColor: "#000000"
+  fontSize: 12
+  fontStyle: 0
+dimensions:
+  width: 120
+  height: 60
