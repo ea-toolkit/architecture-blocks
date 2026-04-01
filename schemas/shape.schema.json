@@ -85,6 +85,50 @@
         }
       }
     },
+    "properties": {
+      "type": "array",
+      "description": "Custom properties that provide context to the shape (key-value metadata shown in draw.io's Edit Data dialog)",
+      "items": {
+        "type": "object",
+        "required": ["key", "label"],
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$",
+            "description": "Property key (used as XML attribute name)"
+          },
+          "label": {
+            "type": "string",
+            "description": "Human-readable label shown in draw.io Edit Data"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["string", "enum", "boolean", "number"],
+            "default": "string",
+            "description": "Property value type"
+          },
+          "default": {
+            "type": "string",
+            "description": "Default value for the property"
+          },
+          "options": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Allowed values (for enum type)"
+          },
+          "required": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether this property must be filled in"
+          },
+          "description": {
+            "type": "string",
+            "description": "Help text explaining what this property is for"
+          }
+        }
+      }
+    },
     "deprecated": {
       "type": "boolean",
       "default": false,

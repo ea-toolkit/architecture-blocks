@@ -8,17 +8,40 @@ function shapeToLibraryEntry(shape: ShapeDefinition, version: string): string {
     `data-library-version=${version}`,
   ].join(";");
 
-  const xml = [
-    `<mxGraphModel>`,
-    `  <root>`,
-    `    <mxCell id="0"/>`,
-    `    <mxCell id="1" parent="0"/>`,
-    `    <mxCell id="2" value="${escapeXml(shape.name)}" style="${escapeXml(styleWithMeta)}" vertex="1" parent="1">`,
-    `      <mxGeometry width="${shape.width}" height="${shape.height}" as="geometry"/>`,
-    `    </mxCell>`,
-    `  </root>`,
-    `</mxGraphModel>`,
-  ].join("");
+  let xml: string;
+
+  if (shape.properties && shape.properties.length > 0) {
+    // Use <object> wrapper for shapes with custom properties
+    const propAttrs = shape.properties
+      .map((p) => `${escapeXml(p.key)}="${escapeXml(p.default || "")}"`)
+      .join(" ");
+
+    xml = [
+      `<mxGraphModel>`,
+      `  <root>`,
+      `    <mxCell id="0"/>`,
+      `    <mxCell id="1" parent="0"/>`,
+      `    <object id="2" label="${escapeXml(shape.name)}" ${propAttrs}>`,
+      `      <mxCell style="${escapeXml(styleWithMeta)}" vertex="1" parent="1">`,
+      `        <mxGeometry width="${shape.width}" height="${shape.height}" as="geometry"/>`,
+      `      </mxCell>`,
+      `    </object>`,
+      `  </root>`,
+      `</mxGraphModel>`,
+    ].join("");
+  } else {
+    xml = [
+      `<mxGraphModel>`,
+      `  <root>`,
+      `    <mxCell id="0"/>`,
+      `    <mxCell id="1" parent="0"/>`,
+      `    <mxCell id="2" value="${escapeXml(shape.name)}" style="${escapeXml(styleWithMeta)}" vertex="1" parent="1">`,
+      `      <mxGeometry width="${shape.width}" height="${shape.height}" as="geometry"/>`,
+      `    </mxCell>`,
+      `  </root>`,
+      `</mxGraphModel>`,
+    ].join("");
+  }
 
   return JSON.stringify({
     xml,
