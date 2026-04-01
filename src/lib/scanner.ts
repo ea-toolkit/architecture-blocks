@@ -1,6 +1,12 @@
 import { readdirSync, statSync, readFileSync, existsSync } from "node:fs";
 import { join, relative } from "node:path";
 
+export interface ScanResult {
+  files: string[];
+  workspace?: string;
+  packages?: Array<{ name: string; path: string; files: string[] }>;
+}
+
 export function scanDrawioFiles(
   rootPath: string,
   respectGitignore = true,
@@ -12,6 +18,63 @@ export function scanDrawioFiles(
   const files: string[] = [];
   walk(rootPath, rootPath, ignorePatterns, files);
   return files.sort();
+}
+
+export function scanWorkspace(rootPath: string): ScanResult {
+  const pkgPath = join(rootPath, "package.json");
+  if (!existsSync(pkgPath)) {
+    return { files: scanDrawioFiles(rootPath) };
+  }
+
+  const pkg = JSON.parse(readFileSync(pkgPath, "utf-8"));
+  const workspaces: string[] | undefined =
+    pkg.workspaces || pkg.workspaces?.packages;
+
+  if (!workspaces || workspaces.length === 0) {
+    return { files: scanDrawioFiles(rootPath) };
+  }
+
+  const packages: Array<{ name: string; path: string; files: string[] }> = [];
+  const allFiles: string[] = [];
+
+  for (const pattern of workspaces) {
+    const clean = pattern.replace(/\/\*$/, "");
+    const wsDir = join(rootPath, clean);
+
+    if (!existsSync(wsDir)) continue;
+
+    const entries = readdirSync(wsDir);
+    for (const entry of entries) {
+      const pkgDir = join(wsDir, entry);
+      const pkgJson = join(pkgDir, "package.json");
+
+      if (!existsSync(pkgJson)) continue;
+
+      const innerPkg = JSON.parse(readFileSync(pkgJson, "utf-8"));
+      const files = scanDrawioFiles(pkgDir);
+
+      if (files.length > 0) {
+        packages.push({
+          name: innerPkg.name || entry,
+          path: relative(rootPath, pkgDir),
+          files,
+        });
+        allFiles.push(...files);
+      }
+    }
+  }
+
+  // Also scan root-level .drawio files
+  const rootFiles = scanDrawioFiles(rootPath).filter(
+    (f) => !allFiles.includes(f),
+  );
+  allFiles.push(...rootFiles);
+
+  return {
+    files: allFiles.sort(),
+    workspace: pkg.name,
+    packages,
+  };
 }
 
 function walk(
