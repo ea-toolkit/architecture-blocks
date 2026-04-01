@@ -80,6 +80,27 @@ The CLI parses `.drawio` files, matches shapes by `data-block-id`, compares thei
 | Physical | `#99ff99` | Equipment, Facility, Distribution Network, Material |
 | Composite | `#E0E0E0` | Grouping, Location |
 
+### Extract shapes from existing diagrams
+
+```bash
+npx architecture-blocks extract my-diagram.drawio --output shapes/
+```
+
+Drop ArchiMate shapes on a draw.io canvas, save, run extract — generates YAML definitions automatically. No hand-writing YAML.
+
+### Rollback an upgrade
+
+```bash
+npx architecture-blocks rollback path/to/diagram.drawio
+```
+
+### View version history
+
+```bash
+npx architecture-blocks versions
+npx architecture-blocks diff-versions 0.1.0 0.2.0
+```
+
 ## Programmatic API
 
 ```typescript
@@ -97,6 +118,21 @@ Add to your CI pipeline to catch stale diagrams:
 
 The check command exits with code 1 if any shapes need upgrading, failing the pipeline.
 
+See [Enterprise Adoption Guide](docs/enterprise-guide.md) for advanced CI patterns (scheduled upgrades, PR comments).
+
+## Custom extensions
+
+Add org-specific shapes alongside the standard library:
+
+```json
+// .architecture-blocksrc.json
+{
+  "extensions": ["./custom-shapes"]
+}
+```
+
+Extension shapes follow the same YAML schema and are included in check/upgrade commands.
+
 ## Exit codes
 
 | Code | Meaning |
@@ -104,6 +140,14 @@ The check command exits with code 1 if any shapes need upgrading, failing the pi
 | 0 | Success / all shapes up to date |
 | 1 | Stale shapes found (check command) |
 | 2 | Error (parse failure, write failure) |
+
+## Documentation
+
+- [Enterprise Adoption Guide](docs/enterprise-guide.md) — rollout, CI patterns, governance
+- [ArchiMate 3.2 Coverage](docs/archimate-coverage.md) — 60/60 element types covered
+- [Versioning Strategy](docs/VERSIONING.md) — semver rules, deprecation process
+- [Breaking Change Policy](docs/BREAKING_CHANGES.md) — how changes are communicated
+- [Security Policy](SECURITY.md) — vulnerability reporting, supply chain security
 
 ## License
 
