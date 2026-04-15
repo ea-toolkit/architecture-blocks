@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "commander": "^13.1.0",
-    "fast-xml-parser": "^5.1.0",
+    "fast-xml-parser": "^5.5.12",
     "yaml": "^2.8.3"
   }
 }
